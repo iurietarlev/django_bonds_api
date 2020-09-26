@@ -3,8 +3,8 @@
 This is a Django implementation of a bonds API which allows ingesting data representing bonds, querying an external api for additional data about the specific bond and make the resulting data queryable via the API. The API leverages Django & Django Rest Framework & Django-Rest-Knox.
 
 - Authentication allows each user to only see their own data.
-- Each bond will has a `lei` field (Legal Entity Identifier). The [GLEIF API](https://www.gleif.org/en/lei-data/gleif-lei-look-up-api/access-the-api) is used to find the corresponding `Legal Name` of the entity which issued the bond.
-- SQLite is used as the database.
+- Each bond has a `lei` field (Legal Entity Identifier). The [GLEIF API](https://www.gleif.org/en/lei-data/gleif-lei-look-up-api/access-the-api) is used to find the corresponding `Legal Name` of the entity which issued the bond.
+- SQLite is used for the database.
 
 #### Project Quickstart
 
@@ -32,11 +32,11 @@ with the following data being passed in:
 }
 ```
 
-`POST /logout/` - makes the token generated at login no longer valid
+`POST /logout/` - makes the token generated at login no longer valid.
 
 #### BONDS API
 
-Using the token that is generated when a user is registered or logged in, the user can send a request to:
+Using the token that is generated when a user is registered or logged in (by adding the token in the header), the user can send a request to:
 
 `POST /bonds/`
 to create a "bond" with data that looks like:
