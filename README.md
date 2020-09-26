@@ -4,8 +4,7 @@ This is a Django implementation of a bonds API which allows ingesting data repre
 
 - Authentication allows each user to only see their own data.
 - Each bond will has a `lei` field (Legal Entity Identifier). The [GLEIF API](https://www.gleif.org/en/lei-data/gleif-lei-look-up-api/access-the-api) is used to find the corresponding `Legal Name` of the entity which issued the bond.
-- SQLite is used as the database
-- Manual Testing was performed using [Postman](https://www.postman.com/) API Development Platform
+- SQLite is used as the database.
 
 #### Project Quickstart
 
@@ -14,6 +13,10 @@ Inside a virtual environment running Python 3:
 - `pip install -r requirement.txt`
 - `./manage.py runserver` to run server.
 - `./manage.py test` to run tests.
+
+### APIs
+
+Manual testing of the API was performed using [Postman](https://www.postman.com/) API Development Platform. Brief description of core functionality of the API is given below, but please refer to the [documentation](https://documenter.getpostman.com/view/10868302/TVKHUFWw) for more details.
 
 #### AUTHENTICATION API
 
