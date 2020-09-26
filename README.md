@@ -70,6 +70,8 @@ to see all of the bonds that are currently in their account:
 ]
 ```
 
-By sending a filter query by legal_name: \
-`GET /bonds/?legal_name=BNPPARIBAS` \
+By sending a filter query by legal_name:
+
+`GET /bonds/?legal_name=BNPPARIBAS`
+
 the user is able to retrieve the bonds which fall under that legal_name query only, therefore narrowing down the number of results returned.
