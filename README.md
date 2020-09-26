@@ -1,29 +1,44 @@
-# Origin Markets Backend Test
+# Django Bonds API
 
-### Spec:
+This is a Django implementation of a bonds API which allows ingesting data representing bonds, querying an external api for additional data about the specific bond and make the resulting data queryable via the API. The API leverages Django & Django Rest Framework & Django-Rest-Knox.
 
-We would like you to implement an api to: ingest some data representing bonds, query an external api for some additional data, store the result, and make the resulting data queryable via api.
-- Fork this hello world repo leveraging Django & Django Rest Framework. (If you wish to use something else like flask that's fine too.)
-- Please pick and use a form of authentication, so that each user will only see their own data. ([DRF Auth Options](https://www.django-rest-framework.org/api-guide/authentication/#api-reference))
-- We are missing some data! Each bond will have a `lei` field (Legal Entity Identifier). Please use the [GLEIF API](https://www.gleif.org/en/lei-data/gleif-lei-look-up-api/access-the-api) to find the corresponding `Legal Name` of the entity which issued the bond.
-- If you are using a database, SQLite is sufficient.
-- Please test any additional logic you add.
+- Authentication allows each user to only see their own data.
+- Each bond will has a `lei` field (Legal Entity Identifier). The [GLEIF API](https://www.gleif.org/en/lei-data/gleif-lei-look-up-api/access-the-api) is used to find the corresponding `Legal Name` of the entity which issued the bond.
+- SQLite is used as the database
+- Manual Testing was performed using [Postman](https://www.postman.com/) API Development Platform
 
 #### Project Quickstart
 
 Inside a virtual environment running Python 3:
+
 - `pip install -r requirement.txt`
 - `./manage.py runserver` to run server.
 - `./manage.py test` to run tests.
 
-#### API
+#### AUTHENTICATION API
 
-We should be able to send a request to:
+`POST /login/`,
+`POST /register/` to login and register respectively,
+with the following data being passed in:
+
+```
+{
+    "username": "john",
+    "email": "john@gmail.com",
+    "password": "123456"
+}
+```
+
+`POST /logout/` - makes the token generated at login no longer valid
+
+#### BONDS API
+
+Using the token that is generated when a user is registered or logged in, the user can send a request to:
 
 `POST /bonds/`
-
 to create a "bond" with data that looks like:
-~~~
+
+```
 {
     "isin": "FR0000131104",
     "size": 100000000,
@@ -31,14 +46,17 @@ to create a "bond" with data that looks like:
     "maturity": "2025-02-28",
     "lei": "R0MUWSFPU8MPRO8K5P83"
 }
-~~~
+```
+
 ---
-We should be able to send a request to:
+
+The user can send a request to:
 
 `GET /bonds/`
 
-to see something like:
-~~~
+to see all of the bonds that are currently in their account:
+
+```
 [
     {
         "isin": "FR0000131104",
@@ -50,8 +68,8 @@ to see something like:
     },
     ...
 ]
-~~~
-We would also like to be able to add a filter such as:
-`GET /bonds/?legal_name=BNPPARIBAS`
+```
 
-to reduce down the results.
+By sending a filter query by legal_name: \
+`GET /bonds/?legal_name=BNPPARIBAS` \
+the user is able to retrieve the bonds which fall under that legal_name query only, therefore narrowing down the number of results returned.
